@@ -2,18 +2,17 @@
 :warning: Everything between << >> needs to be replaced (remove << >> after replacing)
 
 # << Project Title >>
-## CS110 Final Project  << Semester, Year >>
+## CS110 Final Project Fall Semester, 2024
 
 ## Team Members
 
-<< List team member names >>
+Amitai Saiger
 
 ***
 
 ## Project Description
 
-<< Give an overview of your project >>
-
+An endless runner sidescroller with obstacles to avoid, and upgrades to make your character stronger after they die for future runs
 ***    
 
 ## GUI Design
@@ -30,11 +29,12 @@
 
 ### Features
 
-1. << Feature 1 >>
-2. << Feature 2 >>
-3. << Feature 3 >>
-4. << Feature 4 >>
-5. << Feature 5 >>
+1. Controllable Character
+2. Obstacle Collisions
+3. Start and Upgrade menus
+4. Side Scrolling GUI
+5. Death Screen
+6. Coins and Upgrades to Buy With Them
 
 ### Classes
 
