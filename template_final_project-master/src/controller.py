@@ -1,6 +1,6 @@
 import pygame
-from obstacle import Obstacle
-from runner import Runner
+from src.obstacle import Obstacle
+from src.runner import Runner
 class Controller:
     def __init__(self):
         '''
