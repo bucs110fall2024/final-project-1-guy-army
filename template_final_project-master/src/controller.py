@@ -1,4 +1,6 @@
-class controller:
+from obstacle import Obstacle
+from runner import Runner
+class Controller:
     def __init__(self):
         '''
         initializes the controller object

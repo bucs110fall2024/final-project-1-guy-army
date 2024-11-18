@@ -26,6 +26,10 @@ An endless runner sidescroller with obstacles to avoid, and upgrades to make you
 ![final gui](assets/finalgui.jpg)
 
 ## Program Design
+Models:
+Obstacle
+Runner
+
 
 ### Features
 
