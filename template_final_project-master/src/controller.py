@@ -1,4 +1,3 @@
-import pygame
 from obstacle import Obstacle
 from runner import Runner
 class Controller:
@@ -6,6 +5,7 @@ class Controller:
         '''
         initializes the controller object
         '''
+        import pygame
     def mainloop(self):
         '''
         the main loop for the controller
