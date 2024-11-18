@@ -1,3 +1,4 @@
+import pygame
 from obstacle import Obstacle
 from runner import Runner
 class Controller:
