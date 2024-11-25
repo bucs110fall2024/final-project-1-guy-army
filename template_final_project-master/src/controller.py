@@ -6,13 +6,19 @@ class Controller:
         '''
         initializes the controller object
         '''
-        
+        pygame.init()
+        self.screen = pygame.display.set_mode()
+        self.width, self.height = pygame.display.get_window_size()
+        self.state = "GAME"
+        self.runner = Runner(self.width/2, self.height/2, img_file = "assets/runner.jpg")
     def mainloop(self):
         '''
         the main loop for the controller
         '''
-        while(True):
+        while self.state == "GAME":
             for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    pass
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()

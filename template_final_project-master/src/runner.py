@@ -1,7 +1,7 @@
 import pygame
 class Runner(pygame.sprite.Sprite):
     
-    def __init__(self,x, y, img_file ="assets/runner.jpg"):
+    def __init__(self,x, y, img_file):
         super().__init__()
         """
         Initializes the Runner object
