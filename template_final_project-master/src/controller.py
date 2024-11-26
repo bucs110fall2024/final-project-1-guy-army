@@ -32,18 +32,19 @@ class Controller:
                     exit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE: 
-                        if pygame.sprite.spritecollide(self.runner, self.ground_blocks, False ) == True:
+                        if len(pygame.sprite.spritecollide(self.runner, self.ground_blocks, False )) >0:
                             self.runner.jump()
             "detect collisions/updates"
             self.runner.update()
-            if pygame.sprite.spritecollide(self.runner, self.ground_blocks, False ) == True:
+            
+            if len(pygame.sprite.spritecollide(self.runner, self.ground_blocks, False )) > 0:
                 self.runner.yvel = 0 
             else: 
                 self.runner.rect.y += self.runner.yvel
             "redraw next frame"     
             self.background.fill(self.background_color)
             self.screen.blit(self.background, (0, 0))
-            self.screen.blit(self.runner.image, self.runner.rect)
             self.ground_blocks.draw(self.screen)
+            self.screen.blit(self.runner.image, self.runner.rect)
             pygame.display.flip()
             
