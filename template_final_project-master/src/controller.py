@@ -19,7 +19,7 @@ class Controller:
         '''
         the main loop for the controller
         '''
-        on_ground = False
+        
         while self.state == "GAME":
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -27,18 +27,16 @@ class Controller:
                     exit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE: 
-                        if on_ground == True:
-                            self.runner.rect.y -= 50
-                            self.runner.yvel -= 100
+                        if self.runner.check_collision(self.ground.rect) == True:
+                            self.runner.jump()
             "detect collisions/updates"
             "redraw next frame"
             self.runner.yvel += 1
-            if self.runner.rect.colliderect(self.ground.rect):
-                self.runner.yvel = 0
-                on_ground == True
+            if self.runner.check_collision(self.ground.rect) == True:
+                self.runner.yvel = 0 
             else: 
                 self.runner.rect.y += self.runner.yvel
-                on_ground == False
+                
                 
             self.background.fill(self.background_color)
             self.screen.blit(self.background, (0, 0))

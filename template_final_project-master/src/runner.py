@@ -22,11 +22,18 @@ class Runner(pygame.sprite.Sprite):
         makes the runner jump
         args: none
         return: none
-        NOT YET IMPLENTED
         '''
-    def slide(self):
-        ''' makes the runner slide
-        args: none
-        return: none
-        NOT YET IMPLENTED
+        self.rect.y -= 50
+        self.yvel -= 20
+    def check_collision(self, object_rect):
         '''
+        checks if the runner is colliding with an object:
+        args: 
+        - object_rect: Object - the rectangle of the object that the function detects collision with
+        return:
+        - Bool - True or False 
+        '''
+        if self.rect.colliderect(object_rect):
+            return True
+        else:
+            return False
