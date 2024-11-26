@@ -13,8 +13,9 @@ class Controller:
         self.width, self.height = pygame.display.get_window_size()
         self.background = pygame.Surface((self.width, self.height))
         self.background_color = "black"
-        self.runner = Runner(self.width/2, (self.height/2)-50, img_file = "assets/runner.jpg")
-        self.ground = Ground(self.width/2, self.height * 5 / 7, img_file = "assets/ground.png")
+        self.runner = Runner(self.width/4, (self.height/2)-50, img_file = "assets/runner.jpg")
+        self.ground = Ground(self.width/4, self.height * 5 / 7, img_file = "assets/ground.png")
+        self.ground2 = Ground(0, self.height * 5 / 7, img_file = "assets/ground.png")
     def mainloop(self):
         '''
         the main loop for the controller
@@ -41,6 +42,7 @@ class Controller:
             self.background.fill(self.background_color)
             self.screen.blit(self.background, (0, 0))
             self.screen.blit(self.ground.image, self.ground.rect)
+            self.screen.blit(self.ground2.image, self.ground2.rect)
             self.screen.blit(self.runner.image, self.runner.rect)
             pygame.display.flip()
             
