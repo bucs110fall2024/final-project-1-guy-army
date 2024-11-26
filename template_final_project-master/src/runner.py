@@ -25,15 +25,11 @@ class Runner(pygame.sprite.Sprite):
         '''
         self.rect.y -= 50
         self.yvel -= 20
-    def check_collision(self, object_rect):
+    def update(self):
         '''
-        checks if the runner is colliding with an object:
-        args: 
-        - object_rect: Object - the rectangle of the object that the function detects collision with
-        return:
-        - Bool - True or False 
+        updates the runner's values
+        args: none
+        return: none
         '''
-        if self.rect.colliderect(object_rect):
-            return True
-        else:
-            return False
+        self.yvel += 0.5
+        

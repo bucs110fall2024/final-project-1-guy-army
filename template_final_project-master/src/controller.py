@@ -12,10 +12,14 @@ class Controller:
         self.state = "GAME"
         self.width, self.height = pygame.display.get_window_size()
         self.background = pygame.Surface((self.width, self.height))
-        self.background_color = "black"
+        self.background_color = "light blue"
         self.runner = Runner(self.width/4, (self.height/2)-50, img_file = "assets/runner.jpg")
-        self.ground = Ground(self.width/4, self.height * 5 / 7, img_file = "assets/ground.png")
-        self.ground2 = Ground(0, self.height * 5 / 7, img_file = "assets/ground.png")
+        self.ground_blocks = pygame.sprite.Group()
+        self.max_ground_blocks = 9
+        interval = self.width/ 7
+        for i in range(self.max_ground_blocks):
+            new_gb = Ground(interval*(i-1), self.height * 5/7, img_file = "assets/ground.png")
+            self.ground_blocks.add(new_gb)
     def mainloop(self):
         '''
         the main loop for the controller
@@ -28,21 +32,18 @@ class Controller:
                     exit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE: 
-                        if self.runner.check_collision(self.ground.rect) == True:
+                        if pygame.sprite.spritecollide(self.runner, self.ground_blocks, False ) == True:
                             self.runner.jump()
             "detect collisions/updates"
-            "redraw next frame"
-            self.runner.yvel += 1
-            if self.runner.check_collision(self.ground.rect) == True:
+            self.runner.update()
+            if pygame.sprite.spritecollide(self.runner, self.ground_blocks, False ) == True:
                 self.runner.yvel = 0 
             else: 
                 self.runner.rect.y += self.runner.yvel
-                
-                
+            "redraw next frame"     
             self.background.fill(self.background_color)
             self.screen.blit(self.background, (0, 0))
-            self.screen.blit(self.ground.image, self.ground.rect)
-            self.screen.blit(self.ground2.image, self.ground2.rect)
             self.screen.blit(self.runner.image, self.runner.rect)
+            self.ground_blocks.draw(self.screen)
             pygame.display.flip()
             
