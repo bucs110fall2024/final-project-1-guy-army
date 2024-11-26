@@ -13,7 +13,7 @@ class Controller:
         self.width, self.height = pygame.display.get_window_size()
         self.background = pygame.Surface((self.width, self.height))
         self.background_color = "light blue"
-        self.runner = Runner(self.width/4, (self.height/2)-50, img_file = "assets/runner.jpg")
+        self.runner = Runner(self.width/6, (self.height/2)-50, img_file = "assets/runner.jpg")
         self.ground_blocks = pygame.sprite.Group()
         self.max_ground_blocks = 9
         interval = self.width/ 7
