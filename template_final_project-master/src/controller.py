@@ -47,6 +47,8 @@ class Controller:
                 self.runner.yvel = 0 
             else: 
                 self.runner.rect.y += self.runner.yvel
+            if self.runner.rect.colliderect(self.obstacle.rect):
+                pygame.quit()
             "redraw next frame"     
             self.background.fill(self.background_color)
             self.screen.blit(self.background, (0, 0))

@@ -11,8 +11,8 @@ class Runner(pygame.sprite.Sprite):
         - img_file : str - path to img file
         """
         self.image = pygame.image.load(img_file)
-        self.rect= self.image.get_rect()
-        self.rect.x = x
+        self.rect = pygame.Rect(x, y, 100, 215)
+        self.rect.x = x 
         self.rect.y = y
         self.xvel = 0
         self.yvel = 0
