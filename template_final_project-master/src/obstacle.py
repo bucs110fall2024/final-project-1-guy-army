@@ -32,4 +32,4 @@ class Obstacle(pygame.sprite.Sprite):
         return: none
         '''
         self.time +=1
-        self.xvel = math.sqrt(self.time/100)
+        self.xvel = math.sqrt(self.time/50)
