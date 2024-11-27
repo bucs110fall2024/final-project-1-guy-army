@@ -1,4 +1,5 @@
 import pygame
+import math
 class Obstacle(pygame.sprite.Sprite):
     
     def __init__(self,x, y, img_file = "assets/obstacle.png"):
@@ -16,6 +17,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect.y = y
         self.xvel = 0
         self.yvel = 0
+        self.time = 0
     def move(self):
         '''
         makes the obstacle move toward the runner
@@ -23,5 +25,11 @@ class Obstacle(pygame.sprite.Sprite):
         return: none
         '''
         self.rect.x -= self.xvel
-
-
+    def update(self):
+        '''
+        updates the obstacle's values
+        args: none
+        return: none
+        '''
+        self.time +=1
+        self.xvel = math.sqrt(self.time/10)
