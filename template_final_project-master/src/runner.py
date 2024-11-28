@@ -9,6 +9,7 @@ class Runner(pygame.sprite.Sprite):
         - x : int - starting x coordinate
         - y : int - starting y coordinate
         - img_file : str - path to img file
+        return: none
         """
         self.image = pygame.image.load(img_file)
         self.rect = pygame.Rect(x, y, 100, 215)
