@@ -10,13 +10,16 @@ class Controller:
         initializes the controller object
         '''
         pygame.init()
+        self.state = "GAME" # set starting gamestate 
+        def start_playing():
+            self.obstacle.rect.x = self.width
+            self.state = "GAME"
         self.screen = pygame.display.set_mode() # set display mode
-        self.state = "MENU" # set starting gamestate 
         self.width, self.height = pygame.display.get_window_size() # get width and height of screen
         self.background = pygame.Surface((self.width, self.height)) # set background surface
         self.runner = Runner(self.width/6, (self.height/2)-50, img_file = "assets/runner.jpg") # create runner object
         self.start_button = Button(
-            self.background, 
+            self.screen, 
             self.width/2 - 100, 
             self.height/2 - 150, 
             200, 
@@ -27,9 +30,9 @@ class Controller:
             margin = 5, 
             inactiveColour = "red", 
             hoverColour = "maroon", 
-            pressedColor = "light green", 
+            pressedColor = "neon green", 
             radius = 10, 
-            onClick=lambda: print('Click')) # makes button object using pygame widgets
+            onClick=lambda:start_playing()) # makes button object using pygame widgets
         self.ground_blocks = pygame.sprite.Group() # create ground blocks sprite group
         self.max_ground_blocks = 9 # set number of ground blocks
         interval = self.width/ 7 # set how far apart the ground blocks are
@@ -43,48 +46,47 @@ class Controller:
         '''
         the main loop for the controller
         '''
-        while self.state == "MENU":
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    pass
-            self.background_color = "black" # set background color
-            self.background.fill(self.background_color)
-            self.screen.blit(self.background, (0, 0))
-            pygame_widgets.update(events)
-            pygame.display.update()
-            pygame.display.flip()
-            
-        while self.state == "GAME":
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE: 
-                        if len(pygame.sprite.spritecollide(self.runner, self.ground_blocks, False )) >0:
-                            self.runner.jump()
-            "detect collisions/updates"
-            self.runner.update()
-            self.obstacle.update()
-            self.obstacle.move()
-            if self.obstacle.rect.x < 0:
-                self.obstacle.rect.x = self.width
-            if len(pygame.sprite.spritecollide(self.runner, self.ground_blocks, False )) > 0:
-                self.runner.yvel = 0 
-                self.runner.rect.y = ((self.height * 5/7) - 210) # snaps runner to the ground when he touches the ground
-            else: 
-                self.runner.rect.y += self.runner.yvel
-            if self.runner.rect.colliderect(self.obstacle.rect):
-                pygame.quit()
-            "redraw next frame"     
-            self.background_color = "light blue" # set background color
-            self.background.fill(self.background_color)
-            self.screen.blit(self.background, (0, 0))
-            self.ground_blocks.draw(self.screen)
-            self.screen.blit(self.obstacle.image, self.obstacle.rect)
-            self.screen.blit(self.runner.image, self.runner.rect)
-            pygame.display.flip()
+        while self.state == "MENU" or self.state == "GAME":
+            while self.state == "MENU":
+                events = pygame.event.get()
+                for event in events:
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        exit()
+                self.background_color = "black" # set background color
+                self.background.fill(self.background_color)
+                self.screen.blit(self.background, (0, 0))
+                pygame_widgets.update(events)
+                pygame.display.update()
+                
+            while self.state == "GAME":
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        exit()
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE: 
+                            if len(pygame.sprite.spritecollide(self.runner, self.ground_blocks, False )) >0:
+                                self.runner.jump()
+                "detect collisions/updates"
+                self.runner.update()
+                self.obstacle.update()
+                self.obstacle.move()
+                if self.obstacle.rect.x < 0:
+                    self.obstacle.rect.x = self.width
+                if len(pygame.sprite.spritecollide(self.runner, self.ground_blocks, False )) > 0:
+                    self.runner.yvel = 0 
+                    self.runner.rect.y = ((self.height * 5/7) - 210) # snaps runner to the ground when he touches the ground
+                else: 
+                    self.runner.rect.y += self.runner.yvel
+                if self.runner.rect.colliderect(self.obstacle.rect):
+                    self.state = "MENU"
+                "redraw next frame"     
+                self.background_color = "light blue" # set background color
+                self.background.fill(self.background_color)
+                self.screen.blit(self.background, (0, 0))
+                self.ground_blocks.draw(self.screen)
+                self.screen.blit(self.obstacle.image, self.obstacle.rect)
+                self.screen.blit(self.runner.image, self.runner.rect)
+                pygame.display.flip()
             
