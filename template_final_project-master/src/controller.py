@@ -15,7 +15,7 @@ class Controller:
         def start_playing():
             self.obstacle.rect.x = self.width
             self.coin.rect.x = self.width
-            self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 100)
+            self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
             self.state = "GAME"
         self.screen = pygame.display.set_mode() # set display mode
         self.width, self.height = pygame.display.get_window_size() # get width and height of screen
@@ -45,7 +45,8 @@ class Controller:
         self.obstacle = Obstacle(self.width, self.height * 5/7, img_file = "assets/obstacle.png") # create obstacle object at the same height as the ground
         obstacle_dimensions = self.obstacle.image.get_size() # finds the dimensions of the obstacle object
         self.obstacle.rect.y -= obstacle_dimensions[1] # moves the obstacle up by it's height
-        self.coin = Obstacle(self.width, random.randrange(0, self.obstacle.rect.y - 100), img_file = "assets/coin.png") # create coin object using the obstacle class because they have the same behavior
+        self.coin = Obstacle(self.width, random.randrange(0, self.obstacle.rect.y - 75), img_file = "assets/coin.png") # create coin object using the obstacle class because they have the same behavior
+        self.coins = 0 # sets coin counter to 0
     def mainloop(self):
         '''
         the main loop for the controller
@@ -79,10 +80,10 @@ class Controller:
                 self.obstacle.update()
                 self.obstacle.move()
                 if self.obstacle.rect.x < 0:
-                    self.obstacle.rect.x = self.width
+                    self.obstacle.rect.x = self.width + random.randrange(0, 500) 
                 if self.coin.rect.x < 0:
-                    self.coin.rect.x = self.width
-                    self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 100)
+                    self.coin.rect.x = self.width + random.randrange(0, 500)
+                    self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
                 if len(pygame.sprite.spritecollide(self.runner, self.ground_blocks, False )) > 0:
                     self.runner.yvel = 0 
                     self.runner.rect.y = ((self.height * 5/7) - 210) # snaps runner to the ground when he touches the ground
@@ -90,6 +91,10 @@ class Controller:
                     self.runner.rect.y += self.runner.yvel
                 if self.runner.rect.colliderect(self.obstacle.rect):
                     self.state = "MENU"
+                if self.runner.rect.colliderect(self.coin.rect):
+                    self.coin.rect.x = self.width + random.randrange(0, 500)
+                    self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
+                    self.coins += 1
                 "redraw next frame"     
                 self.background_color = "light blue" # set background color
                 self.background.fill(self.background_color)
