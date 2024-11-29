@@ -5,6 +5,7 @@ from pygame_widgets.button import Button
 from src.obstacle import Obstacle
 from src.runner import Runner
 from src.ground import Ground
+from src.text import Text
 class Controller:
     def __init__(self):
         '''
@@ -47,6 +48,7 @@ class Controller:
         self.obstacle.rect.y -= obstacle_dimensions[1] # moves the obstacle up by it's height
         self.coin = Obstacle(self.width, random.randrange(0, self.obstacle.rect.y - 75), img_file = "assets/coin.png") # create coin object using the obstacle class because they have the same behavior
         self.coins = 0 # sets coin counter to 0
+        self.coin_counter = Text("calibri", 20, True, "black", None, f"coins: {str(self.coins)}")
     def mainloop(self):
         '''
         the main loop for the controller
@@ -91,10 +93,12 @@ class Controller:
                     self.runner.rect.y += self.runner.yvel
                 if self.runner.rect.colliderect(self.obstacle.rect):
                     self.state = "MENU"
+                    print(self.coin_counter.text)
                 if self.runner.rect.colliderect(self.coin.rect):
                     self.coin.rect.x = self.width + random.randrange(0, 500)
                     self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
                     self.coins += 1
+                    self.coin_counter.text = f"coins: {str(self.coins)}"
                 "redraw next frame"     
                 self.background_color = "light blue" # set background color
                 self.background.fill(self.background_color)
@@ -102,6 +106,7 @@ class Controller:
                 self.ground_blocks.draw(self.screen)
                 self.screen.blit(self.obstacle.image, self.obstacle.rect)
                 self.screen.blit(self.coin.image, self.coin.rect)
+                self.screen.blit(self.coin_counter.texts.render(self.coin_counter.text, self.coin_counter.antialias, self.coin_counter.colour, self.coin_counter.background), (self.width * 7/8, 20))
                 self.screen.blit(self.runner.image, self.runner.rect)
                 pygame.display.flip()
             

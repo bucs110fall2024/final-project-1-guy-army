@@ -29,8 +29,8 @@ An endless runner sidescroller with obstacles to avoid, and upgrades to make you
 Models:
 Obstacle
 Runner
-
-
+Ground
+Text
 ### Features
 
 1. Controllable Character
