@@ -17,6 +17,9 @@ class Controller:
             self.obstacle.rect.x = self.width
             self.coin.rect.x = self.width
             self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
+            self.coin_counter.colour = "black"
+            self.obstacle.time = 0
+            self.coin.time = 0
             self.state = "GAME"
         self.screen = pygame.display.set_mode() # set display mode
         self.width, self.height = pygame.display.get_window_size() # get width and height of screen
@@ -48,7 +51,7 @@ class Controller:
         self.obstacle.rect.y -= obstacle_dimensions[1] # moves the obstacle up by it's height
         self.coin = Obstacle(self.width, random.randrange(0, self.obstacle.rect.y - 75), img_file = "assets/coin.png") # create coin object using the obstacle class because they have the same behavior
         self.coins = 0 # sets coin counter to 0
-        self.coin_counter = Text("calibri", 20, True, "black", None, f"coins: {str(self.coins)}")
+        self.coin_counter = Text("calibri", 20, True, "white", None, f"coins: {str(self.coins)}")
     def mainloop(self):
         '''
         the main loop for the controller
@@ -63,6 +66,14 @@ class Controller:
                 self.background_color = "black" # set background color
                 self.background.fill(self.background_color)
                 self.screen.blit(self.background, (0, 0))
+                self.screen.blit(
+                    self.coin_counter.texts.render(
+                        self.coin_counter.text, 
+                        self.coin_counter.antialias, 
+                        self.coin_counter.colour, 
+                        self.coin_counter.background), 
+                    (self.width * 11/12, 20)
+                    )
                 pygame_widgets.update(events)
                 pygame.display.update()
                 
@@ -92,8 +103,8 @@ class Controller:
                 else: 
                     self.runner.rect.y += self.runner.yvel
                 if self.runner.rect.colliderect(self.obstacle.rect):
+                    self.coin_counter.colour = "white"
                     self.state = "MENU"
-                    print(self.coin_counter.text)
                 if self.runner.rect.colliderect(self.coin.rect):
                     self.coin.rect.x = self.width + random.randrange(0, 500)
                     self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
@@ -106,7 +117,14 @@ class Controller:
                 self.ground_blocks.draw(self.screen)
                 self.screen.blit(self.obstacle.image, self.obstacle.rect)
                 self.screen.blit(self.coin.image, self.coin.rect)
-                self.screen.blit(self.coin_counter.texts.render(self.coin_counter.text, self.coin_counter.antialias, self.coin_counter.colour, self.coin_counter.background), (self.width * 7/8, 20))
+                self.screen.blit(
+                    self.coin_counter.texts.render(
+                        self.coin_counter.text, 
+                        self.coin_counter.antialias, 
+                        self.coin_counter.colour, 
+                        self.coin_counter.background), 
+                    (self.width * 11/12, 20)
+                    )
                 self.screen.blit(self.runner.image, self.runner.rect)
                 pygame.display.flip()
             
