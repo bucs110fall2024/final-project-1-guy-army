@@ -18,6 +18,8 @@ class Controller:
             self.coin.rect.x = self.width
             self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
             self.coin_counter.colour = "black"
+            self.distance_counter.colour = "black"
+            self.max_distance_counter.colour = "black"
             self.obstacle.time = 0
             self.coin.time = 0
             self.state = "GAME"
@@ -52,6 +54,10 @@ class Controller:
         self.coin = Obstacle(self.width, random.randrange(0, self.obstacle.rect.y - 75), img_file = "assets/coin.png") # create coin object using the obstacle class because they have the same behavior
         self.coins = 0 # sets coin counter to 0
         self.coin_counter = Text("calibri", 20, True, "white", None, f"coins: {str(self.coins)}")
+        self.distance = 0 # sets distance counter to 0
+        self.distance_counter = Text("calibri", 20, True, "white", None, f"distance: {str(self.distance)}")
+        self.max_distance = 0
+        self.max_distance_counter = Text("calibri", 20, True, "white", None, f"max distance: {str(self.max_distance)}")
     def mainloop(self):
         '''
         the main loop for the controller
@@ -72,8 +78,16 @@ class Controller:
                         self.coin_counter.antialias, 
                         self.coin_counter.colour, 
                         self.coin_counter.background), 
-                    (self.width * 11/12, 20)
+                    (self.width * 13/15, 20)
                     )
+                self.screen.blit(
+                    self.max_distance_counter.texts.render(
+                            self.max_distance_counter.text, 
+                            self.max_distance_counter.antialias, 
+                            self.max_distance_counter.colour, 
+                            self.max_distance_counter.background), 
+                        (self.width * 13/15, 50)
+                )
                 pygame_widgets.update(events)
                 pygame.display.update()
                 
@@ -93,6 +107,11 @@ class Controller:
                 self.obstacle.update()
                 self.obstacle.move()
                 if self.obstacle.rect.x < 0:
+                    self.distance += 1
+                    self.distance_counter.text = f"distance:{str(self.distance)}"
+                    if self.distance >= self.max_distance:
+                        self.max_distance = self.distance
+                        self.max_distance_counter.text = f"max distance:{str(self.max_distance)}"
                     self.obstacle.rect.x = self.width + random.randrange(0, 500) 
                 if self.coin.rect.x < 0:
                     self.coin.rect.x = self.width + random.randrange(0, 500)
@@ -104,6 +123,10 @@ class Controller:
                     self.runner.rect.y += self.runner.yvel
                 if self.runner.rect.colliderect(self.obstacle.rect):
                     self.coin_counter.colour = "white"
+                    self.distance_counter.colour = "white"
+                    self.max_distance_counter.colour = "white"
+                    self.distance = 0
+                    self.distance_counter.text = f"distance:{str(self.distance)}"
                     self.state = "MENU"
                 if self.runner.rect.colliderect(self.coin.rect):
                     self.coin.rect.x = self.width + random.randrange(0, 500)
@@ -123,8 +146,24 @@ class Controller:
                         self.coin_counter.antialias, 
                         self.coin_counter.colour, 
                         self.coin_counter.background), 
-                    (self.width * 11/12, 20)
+                    (self.width * 13/15, 20)
                     )
+                self.screen.blit(
+                    self.distance_counter.texts.render(
+                        self.distance_counter.text, 
+                        self.distance_counter.antialias, 
+                        self.distance_counter.colour, 
+                        self.distance_counter.background), 
+                    (self.width * 13/15, 50)
+                    )
+                self.screen.blit(
+                    self.max_distance_counter.texts.render(
+                        self.max_distance_counter.text,
+                        self.max_distance_counter.antialias,
+                        self.max_distance_counter.colour,
+                        self.max_distance_counter.background),
+                    (self.width * 13/15, 80)
+                )
                 self.screen.blit(self.runner.image, self.runner.rect)
                 pygame.display.flip()
             
