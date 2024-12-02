@@ -20,6 +20,7 @@ class Controller:
             self.coin_counter.colour = "black"
             self.distance_counter.colour = "black"
             self.max_distance_counter.colour = "black"
+            self.max_coins_counter.colour = "black"
             self.obstacle.time = 0
             self.coin.time = 0
             self.state = "GAME"
@@ -112,6 +113,8 @@ class Controller:
         self.distance_counter = Text("calibri", 20, True, "white", None, f"distance: {str(self.distance)}")
         self.max_distance = 0
         self.max_distance_counter = Text("calibri", 20, True, "white", None, f"max distance: {str(self.max_distance)}")
+        self.max_coins = 0
+        self.max_coins_counter = Text("calibri", 20, True, "white", None, f"max coins: {str(self.max_coins)}")
         self.recentdistance = 0
         self.distance_mult_number = 0
     def mainloop(self):
@@ -143,6 +146,14 @@ class Controller:
                             self.max_distance_counter.colour, 
                             self.max_distance_counter.background), 
                         (self.width * 13/15, 50)
+                )
+                self.screen.blit(
+                    self.max_coins_counter.texts.render(
+                            self.max_coins_counter.text, 
+                            self.max_coins_counter.antialias, 
+                            self.max_coins_counter.colour, 
+                            self.max_coins_counter.background), 
+                        (self.width * 13/15, 80)
                 )
                 pygame_widgets.update(events)
                 pygame.display.update()
@@ -188,6 +199,7 @@ class Controller:
                     self.coin_counter.colour = "white"
                     self.distance_counter.colour = "white"
                     self.max_distance_counter.colour = "white"
+                    self.max_coins_counter.colour = "white"
                     self.distance = 0
                     self.distance_counter.text = f"distance:{str(self.distance)}"
                     self.coinmult /= (self.distance_mult_number + 1)
@@ -199,6 +211,9 @@ class Controller:
                     self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
                     self.coins += 1 * self.coinmult
                     self.coin_counter.text = f"coins: {str(self.coins)}"
+                    if self.coins >= self.max_coins:
+                        self.max_coins = self.coins
+                        self.max_coins_counter.text = f"max coins:{str(self.max_coins)}"
                 "redraw next frame"     
                 self.background_color = "light blue" # set background color
                 self.background.fill(self.background_color)
@@ -229,6 +244,14 @@ class Controller:
                         self.max_distance_counter.colour,
                         self.max_distance_counter.background),
                     (self.width * 13/15, 80)
+                )
+                self.screen.blit(
+                    self.max_coins_counter.texts.render(
+                            self.max_coins_counter.text, 
+                            self.max_coins_counter.antialias, 
+                            self.max_coins_counter.colour, 
+                            self.max_coins_counter.background), 
+                        (self.width * 13/15, 110)
                 )
                 self.screen.blit(self.runner.image, self.runner.rect)
                 pygame.display.flip()
