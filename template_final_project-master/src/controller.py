@@ -112,6 +112,8 @@ class Controller:
         self.distance_counter = Text("calibri", 20, True, "white", None, f"distance: {str(self.distance)}")
         self.max_distance = 0
         self.max_distance_counter = Text("calibri", 20, True, "white", None, f"max distance: {str(self.max_distance)}")
+        self.recentdistance = 0
+        self.distance_mult_number = 0
     def mainloop(self):
         '''
         the main loop for the controller
@@ -163,6 +165,13 @@ class Controller:
                 if self.obstacle.rect.x < 0:
                     self.distance += 1
                     self.distance_counter.text = f"distance:{str(self.distance)}"
+                    if self.distance % 10 == 0 and self.recentdistance != self.distance:
+                        self.coinmult *= self.distance/10 + 1
+                        self.coinmult /= self.distance/10 
+                        self.coinmult = int(self.coinmult)
+                        self.recentdistance = self.distance
+                        self.distance_mult_number += 1
+                        
                     if self.distance >= self.max_distance:
                         self.max_distance = self.distance
                         self.max_distance_counter.text = f"max distance:{str(self.max_distance)}"
@@ -181,6 +190,9 @@ class Controller:
                     self.max_distance_counter.colour = "white"
                     self.distance = 0
                     self.distance_counter.text = f"distance:{str(self.distance)}"
+                    self.coinmult /= (self.distance_mult_number + 1)
+                    self.coinmult = int(self.coinmult)
+                    self.distance_mult_number = 0
                     self.state = "MENU"
                 if self.runner.rect.colliderect(self.coin.rect):
                     self.coin.rect.x = self.width + random.randrange(0, 500)
