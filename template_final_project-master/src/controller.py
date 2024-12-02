@@ -23,6 +23,27 @@ class Controller:
             self.obstacle.time = 0
             self.coin.time = 0
             self.state = "GAME"
+        def change_coinmult(mult):
+            if mult == 2:
+                if self.coins >= 20 and self.coinmult_button_2_already_purchased == False:
+                    self.coins -= 20
+                    self.coin_counter.text = f"coins: {str(self.coins)}"
+                    self.coinmult_button_2.setInactiveColour("grey")
+                    self.coinmult_button_2.setHoverColour("grey")
+                    self.coinmult_button_2.setPressedColour("grey")
+                    self.coinmult = self.coinmult * mult
+                    self.coinmult_button_2.setText("2x coin multiplyer purchased")
+                    self.coinmult_button_2_already_purchased = True
+            if mult == 10:
+                if self.coins >= 200 and self.coinmult_button_10_already_purchased == False:
+                    self.coins -= 200
+                    self.coin_counter.text = f"coins: {str(self.coins)}"
+                    self.coinmult_button_10.setInactiveColour("grey")
+                    self.coinmult_button_10.setHoverColour("grey")
+                    self.coinmult_button_10.setPressedColour("grey")
+                    self.coinmult = self.coinmult * mult
+                    self.coinmult_button_10.setText("10x coin multiplyer purchased")
+                    self.coinmult_button_10_already_purchased = True
         self.screen = pygame.display.set_mode() # set display mode
         self.width, self.height = pygame.display.get_window_size() # get width and height of screen
         self.background = pygame.Surface((self.width, self.height)) # set background surface
@@ -42,6 +63,38 @@ class Controller:
             pressedColor = "neon green", 
             radius = 10, 
             onClick=lambda:start_playing()) # makes button object using pygame widgets
+        self.coinmult_button_2 = Button(
+            self.screen, 
+            self.width/5 - 75, 
+            self.height/2 - 100, 
+            250, 
+            175, 
+            isSubWidget= False, 
+            text = "Click To Buy 2x Coin Multiplyer (Costs 20 Coins)", 
+            fontSize = 10, 
+            margin = 20, 
+            inactiveColour = "red", 
+            hoverColour = "maroon", 
+            pressedColor = "neon green", 
+            radius = 10, 
+            onClick=lambda:change_coinmult(2)) 
+        self.coinmult_button_2_already_purchased = False
+        self.coinmult_button_10 = Button(
+            self.screen, 
+            self.width - self.width/5 - 175, 
+            self.height/2 - 100, 
+            250, 
+            175, 
+            isSubWidget= False, 
+            text = "Click To Buy 10x Coin Multiplyer (Costs 200 Coins)", 
+            fontSize = 10, 
+            margin = 20, 
+            inactiveColour = "red", 
+            hoverColour = "maroon", 
+            pressedColor = "neon green", 
+            radius = 10, 
+            onClick=lambda:change_coinmult(10)) 
+        self.coinmult_button_10_already_purchased = False
         self.ground_blocks = pygame.sprite.Group() # create ground blocks sprite group
         self.max_ground_blocks = 9 # set number of ground blocks
         interval = self.width/ 7 # set how far apart the ground blocks are
@@ -54,6 +107,7 @@ class Controller:
         self.coin = Obstacle(self.width, random.randrange(0, self.obstacle.rect.y - 75), img_file = "assets/coin.png") # create coin object using the obstacle class because they have the same behavior
         self.coins = 0 # sets coin counter to 0
         self.coin_counter = Text("calibri", 20, True, "white", None, f"coins: {str(self.coins)}")
+        self.coinmult = 1
         self.distance = 0 # sets distance counter to 0
         self.distance_counter = Text("calibri", 20, True, "white", None, f"distance: {str(self.distance)}")
         self.max_distance = 0
@@ -131,7 +185,7 @@ class Controller:
                 if self.runner.rect.colliderect(self.coin.rect):
                     self.coin.rect.x = self.width + random.randrange(0, 500)
                     self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
-                    self.coins += 1
+                    self.coins += 1 * self.coinmult
                     self.coin_counter.text = f"coins: {str(self.coins)}"
                 "redraw next frame"     
                 self.background_color = "light blue" # set background color
