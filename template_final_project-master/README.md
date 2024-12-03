@@ -134,7 +134,7 @@ Test Case 8: Coin Multiplyer Buttons
 - Expected Outcoome: The coin multiplier buttons should multiply the value of a coin by 2x and 10x respectively, but only if you have enough coins to purchase the upgrade. Your coins should go down by the amount that the button says the upgrade costs.
 
 Test Case 9: Extra Lives
-- Test Description: Verify that the extra lives button works correctly, and that extra lives allow you to keep playing upon collision with an obstacle
+- Test Description: Verify that the extra lives button works correctly, and that extra lives allow you to keep playing upon collision with an obstacle.
 - Test Steps: 
     1. Open the game
     2. Click on the button in the bottom middle reading "Click To Purchase an extra starting life (costs 100 coins)"
