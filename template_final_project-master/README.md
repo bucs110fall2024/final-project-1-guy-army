@@ -94,7 +94,7 @@ Test Case 5: Collecting Coins
 Test Case 6: High Score Files
 - Test Description: Verify that the game stores high score data for max coins and max distance in the assets/coins_high_score.txt and assets/distance_high_score.txt files respectively in order to save high scores after closing the game.
 - Test Steps:
-    1. (Optional) Open Both high score txt files in the assets folder, and manually set the text inside them to 0 if they don't already have that text. This will make it easier to test this test case, but is not necessary
+    1. (Optional) Open Both high score txt files in the assets folder, and manually set the text inside them to 0 if they don't already have that text. Then save those files. This will make it easier to test this test case, but is not necessary
     2. Open the game
     3. Click the start button
     4. Collect more coins than collected previously since the game has been opened, and travel a farther distance than has previously been traveled since the game has been opened by using the space bar to jump over obstacles and collect coins

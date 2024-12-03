@@ -10,10 +10,17 @@ class Controller:
     def __init__(self):
         '''
         initializes the controller object
+        args: none
+        return: none
         '''
         pygame.init()
-        self.state = "MENU" # set starting gamestate 
+        self.state = "MENU" 
         def start_playing():
+            '''
+            switches from the menu screen to the game screen, and does various other housekeeping needed to start playing
+            args: none
+            return: none
+            '''
             self.obstacle.rect.x = self.width
             self.coin.rect.x = self.width
             self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
@@ -27,6 +34,12 @@ class Controller:
             self.runner.lives = self.starting_lives
             self.state = "GAME"
         def change_coinmult(mult):
+            '''
+            changes the coin multiplier based on which button was pressed
+            args:
+            - mult : int - the number by which the coin multiplier should be changed
+            return: none
+            '''
             if mult == 2:
                 if self.coins >= 20 and self.coinmult_button_2_already_purchased == False:
                     self.coins -= 20
@@ -48,15 +61,20 @@ class Controller:
                     self.coinmult_button_10.setText("10x coin multiplier purchased")
                     self.coinmult_button_10_already_purchased = True
         def add_starting_life():
+            '''
+            adds an extra starting life to the runner
+            args: none
+            return: none
+            '''
             if self.coins >= 100:
                 self.coins -= 100
                 self.coin_counter.text = f"coins: {str(self.coins)}"
                 self.starting_lives += 1
                 self.lives_counter.text = f"lives: {str(self.starting_lives)}"
-        self.screen = pygame.display.set_mode() # set display mode
-        self.width, self.height = pygame.display.get_window_size() # get width and height of screen
-        self.background = pygame.Surface((self.width, self.height)) # set background surface
-        self.runner = Runner(self.width/6, (self.height/2)-50, img_file = "assets/runner.jpg") # create runner object
+        self.screen = pygame.display.set_mode() 
+        self.width, self.height = pygame.display.get_window_size() 
+        self.background = pygame.Surface((self.width, self.height)) 
+        self.runner = Runner(self.width/6, (self.height/2)-50, img_file = "assets/runner.jpg") 
         self.start_button = Button(
             self.screen, 
             self.width/2 - 150, 
@@ -71,7 +89,7 @@ class Controller:
             hoverColour = "maroon", 
             pressedColor = "neon green", 
             radius = 10, 
-            onClick=lambda:start_playing()) # makes button object using pygame widgets
+            onClick=lambda:start_playing()) 
         self.livesup_button = Button(
             self.screen, 
             self.width/2 - 150, 
@@ -119,20 +137,20 @@ class Controller:
             radius = 10, 
             onClick=lambda:change_coinmult(10)) 
         self.coinmult_button_10_already_purchased = False
-        self.ground_blocks = pygame.sprite.Group() # create ground blocks sprite group
-        self.max_ground_blocks = 9 # set number of ground blocks
-        interval = self.width/ 7 # set how far apart the ground blocks are
-        for i in range(self.max_ground_blocks): # add ground blocks to the sprite group
-            new_gb = Ground(interval*(i-1), self.height * 5/7, img_file = "assets/ground.png") # create ground block object
-            self.ground_blocks.add(new_gb) # add a new ground block
-        self.obstacle = Obstacle(self.width, self.height * 5/7, img_file = "assets/obstacle.png") # create obstacle object at the same height as the ground
-        obstacle_dimensions = self.obstacle.image.get_size() # finds the dimensions of the obstacle object
-        self.obstacle.rect.y -= obstacle_dimensions[1] # moves the obstacle up by it's height
-        self.coin = Obstacle(self.width, random.randrange(0, self.obstacle.rect.y - 75), img_file = "assets/coin.png") # create coin object using the obstacle class because they have the same behavior
-        self.coins = 0 # sets coin counter to 0
+        self.ground_blocks = pygame.sprite.Group() 
+        self.max_ground_blocks = 9
+        interval = self.width/ 7 
+        for i in range(self.max_ground_blocks): 
+            new_gb = Ground(interval*(i-1), self.height * 5/7, img_file = "assets/ground.png") 
+            self.ground_blocks.add(new_gb) 
+        self.obstacle = Obstacle(self.width, self.height * 5/7, img_file = "assets/obstacle.png") 
+        obstacle_dimensions = self.obstacle.image.get_size() 
+        self.obstacle.rect.y -= obstacle_dimensions[1]
+        self.coin = Obstacle(self.width, random.randrange(0, self.obstacle.rect.y - 75), img_file = "assets/coin.png") 
+        self.coins = 0 
         self.coin_counter = Text("calibri", 20, True, "white", None, f"coins: {str(self.coins)}")
         self.coinmult = 1
-        self.distance = 0 # sets distance counter to 0
+        self.distance = 0 
         self.distance_counter = Text("calibri", 20, True, "white", None, f"distance: {str(self.distance)}")
         self.max_distance = int((open("assets/distance_high_score.txt", "r")).read())
         self.max_distance_counter = Text("calibri", 20, True, "white", None, f"distance high score: {str((open("assets/distance_high_score.txt", "r")).read())}")
@@ -147,6 +165,8 @@ class Controller:
     def mainloop(self):
         '''
         the main loop for the controller
+        args: none
+        return: none
         '''
         while self.state == "MENU" or self.state == "GAME":
             while self.state == "MENU":
@@ -203,7 +223,6 @@ class Controller:
                         if event.key == pygame.K_SPACE: 
                             if len(pygame.sprite.spritecollide(self.runner, self.ground_blocks, False )) >0:
                                 self.runner.jump()
-                "detect collisions/updates"
                 self.runner.update()
                 self.coin.update()
                 self.coin.move()
@@ -217,8 +236,7 @@ class Controller:
                         self.coinmult /= self.distance/10 
                         self.coinmult = int(self.coinmult)
                         self.recentdistance = self.distance
-                        self.distance_mult_number += 1
-                        
+                        self.distance_mult_number += 1    
                     if self.distance >= self.max_distance:
                         self.max_distance = self.distance
                         distance_hs_file = open("assets/distance_high_score.txt", "w")
@@ -265,7 +283,6 @@ class Controller:
                             distance_hs_file = open("assets/distance_high_score.txt", "r")
                             distance_hs_file_text = distance_hs_file.read()
                             self.max_distance_counter.text = f"distance high score:{str(distance_hs_file_text)}"
-
                 if self.runner.rect.colliderect(self.coin.rect):
                     self.coin.rect.x = self.width + random.randrange(0, 500)
                     self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
@@ -280,8 +297,7 @@ class Controller:
                         coins_hs_file = open("assets/coins_high_score.txt", "r")
                         coins_hs_file_text = coins_hs_file.read()
                         self.max_coins_counter.text = f"coins high score:{str(coins_hs_file_text)}"
-                        coins_hs_file.close()
-                "redraw next frame"     
+                        coins_hs_file.close()   
                 self.background_color = "light blue" # set background color
                 self.background.fill(self.background_color)
                 self.screen.blit(self.background, (0, 0))
