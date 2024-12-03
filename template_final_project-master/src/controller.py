@@ -35,7 +35,7 @@ class Controller:
                     self.coinmult_button_2.setHoverColour("grey")
                     self.coinmult_button_2.setPressedColour("grey")
                     self.coinmult = self.coinmult * mult
-                    self.coinmult_button_2.setText("2x coin multiplyer purchased")
+                    self.coinmult_button_2.setText("2x coin multiplier purchased")
                     self.coinmult_button_2_already_purchased = True
             if mult == 10:
                 if self.coins >= 200 and self.coinmult_button_10_already_purchased == False:
@@ -45,7 +45,7 @@ class Controller:
                     self.coinmult_button_10.setHoverColour("grey")
                     self.coinmult_button_10.setPressedColour("grey")
                     self.coinmult = self.coinmult * mult
-                    self.coinmult_button_10.setText("10x coin multiplyer purchased")
+                    self.coinmult_button_10.setText("10x coin multiplier purchased")
                     self.coinmult_button_10_already_purchased = True
         def add_starting_life():
             if self.coins >= 100:
@@ -94,7 +94,7 @@ class Controller:
             250, 
             175, 
             isSubWidget= False, 
-            text = "Click To Buy 2x Coin Multiplyer (Costs 20 Coins)", 
+            text = "Click To Buy 2x Coin Multiplier (Costs 20 Coins)", 
             fontSize = 10, 
             margin = 20, 
             inactiveColour = "red", 
@@ -110,7 +110,7 @@ class Controller:
             250, 
             175, 
             isSubWidget= False, 
-            text = "Click To Buy 10x Coin Multiplyer (Costs 200 Coins)", 
+            text = "Click To Buy 10x Coin Multiplier (Costs 200 Coins)", 
             fontSize = 10, 
             margin = 20, 
             inactiveColour = "red", 
