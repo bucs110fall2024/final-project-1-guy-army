@@ -134,10 +134,12 @@ class Controller:
         self.coinmult = 1
         self.distance = 0 # sets distance counter to 0
         self.distance_counter = Text("calibri", 20, True, "white", None, f"distance: {str(self.distance)}")
-        self.max_distance = 0
-        self.max_distance_counter = Text("calibri", 20, True, "white", None, f"distance high score: {str(self.max_distance)}")
-        self.max_coins = 0
-        self.max_coins_counter = Text("calibri", 20, True, "white", None, f"coins high score: {str(self.max_coins)}")
+        self.max_distance = int((open("assets/distance_high_score.txt", "r")).read())
+        self.max_distance_counter = Text("calibri", 20, True, "white", None, f"distance high score: {str((open("assets/distance_high_score.txt", "r")).read())}")
+        (open("assets/distance_high_score.txt", "r")).close()
+        self.max_coins = int((open("assets/coins_high_score.txt", "r")).read())
+        self.max_coins_counter = Text("calibri", 20, True, "white", None, f"coins high score: {str((open("assets/coins_high_score.txt", "r")).read())}")
+        (open("assets/coins_high_score.txt", "r")).close()
         self.recentdistance = 0
         self.distance_mult_number = 0
         self.starting_lives = 1
@@ -219,7 +221,12 @@ class Controller:
                         
                     if self.distance >= self.max_distance:
                         self.max_distance = self.distance
-                        self.max_distance_counter.text = f"distance high score:{str(self.max_distance)}"
+                        distance_hs_file = open("assets/distance_high_score.txt", "w")
+                        distance_hs_file.write(str(self.max_distance))
+                        distance_hs_file.close
+                        distance_hs_file = open("assets/distance_high_score.txt", "r")
+                        distance_hs_file_text = distance_hs_file.read()
+                        self.max_distance_counter.text = f"distance high score:{str(distance_hs_file_text)}"
                     self.obstacle.rect.x = self.width + random.randrange(0, 500) 
                 if self.coin.rect.x < 0:
                     self.coin.rect.x = self.width + random.randrange(0, 500)
@@ -252,7 +259,13 @@ class Controller:
                         self.distance_counter.text = f"distance:{str(self.distance)}"
                         if self.distance >= self.max_distance:
                             self.max_distance = self.distance
-                            self.max_distance_counter.text = f"distance high score:{str(self.max_distance)}"
+                            distance_hs_file = open("assets/distance_high_score.txt", "w")
+                            distance_hs_file.write(str(self.max_distance))
+                            distance_hs_file.close
+                            distance_hs_file = open("assets/distance_high_score.txt", "r")
+                            distance_hs_file_text = distance_hs_file.read()
+                            self.max_distance_counter.text = f"distance high score:{str(distance_hs_file_text)}"
+
                 if self.runner.rect.colliderect(self.coin.rect):
                     self.coin.rect.x = self.width + random.randrange(0, 500)
                     self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
@@ -260,7 +273,14 @@ class Controller:
                     self.coin_counter.text = f"coins: {str(self.coins)}"
                     if self.coins >= self.max_coins:
                         self.max_coins = self.coins
-                        self.max_coins_counter.text = f"coins high score:{str(self.max_coins)}"
+                        #self.max_coins_counter.text = f"coins high score:{str(self.max_coins)}"
+                        coins_hs_file = open("assets/coins_high_score.txt", "w")
+                        coins_hs_file.write(str(self.max_coins))
+                        coins_hs_file.close
+                        coins_hs_file = open("assets/coins_high_score.txt", "r")
+                        coins_hs_file_text = coins_hs_file.read()
+                        self.max_coins_counter.text = f"coins high score:{str(coins_hs_file_text)}"
+                        coins_hs_file.close()
                 "redraw next frame"     
                 self.background_color = "light blue" # set background color
                 self.background.fill(self.background_color)
