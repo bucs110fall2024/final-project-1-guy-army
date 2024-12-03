@@ -1,7 +1,7 @@
 
 :warning: Everything between << >> needs to be replaced (remove << >> after replacing)
 
-# << Project Title >>
+#  Coin Runner 
 ## CS110 Final Project Fall Semester, 2024
 
 ## Team Members
@@ -12,7 +12,7 @@ Amitai Saiger
 
 ## Project Description
 
-An endless runner sidescroller with obstacles to avoid, and upgrades to make your character stronger after they die for future runs
+An endless runner sidescroller with obstacles to avoid, coins to collect, and upgrades to make your character stronger after they die for future runs
 ***    
 
 ## GUI Design
@@ -23,25 +23,26 @@ An endless runner sidescroller with obstacles to avoid, and upgrades to make you
 
 ### Final Design
 
-![final gui](assets/finalgui.jpg)
+![final gui](assets/final_gui.png)
 
 ## Program Design
-Models:
-Obstacle
-Runner
-Ground
-Text
+
 ### Features
 
 1. Controllable Character
 2. Obstacle Collisions
 3. Menu Screen
 4. Side Scrolling GUI
-6. Coins and Upgrades to Buy With Them
+5. Coins To Collect
+6. Upgrade to Buy
+7. High Score Files
 
 ### Classes
 
-- << You should have a list of each of your classes with a description >>
+- Obstacle: This class controls the coins and the obstacles becuase they have similar properties
+- Runner: This class controls the runner that you play as
+- Ground: This class controls the ground, which is made up of a spritegroup of blocks from this class
+- Text: This class controls all the text used in the game
 
 ## ATP
 
