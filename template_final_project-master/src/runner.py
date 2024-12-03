@@ -17,6 +17,7 @@ class Runner(pygame.sprite.Sprite):
         self.rect.y = y
         self.xvel = 0
         self.yvel = 0
+        self.lives = 1
     def jump(self):
         '''
         makes the runner jump
