@@ -1,6 +1,3 @@
-
-:warning: Everything between << >> needs to be replaced (remove << >> after replacing)
-
 #  Coin Runner 
 ## CS110 Final Project Fall Semester, 2024
 
