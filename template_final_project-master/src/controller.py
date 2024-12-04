@@ -251,7 +251,7 @@ class Controller:
                     self.coin.rect.y = random.randrange(0, self.obstacle.rect.y - 75)
                 if len(pygame.sprite.spritecollide(self.runner, self.ground_blocks, False )) > 0:
                     self.runner.yvel = 0 
-                    self.runner.rect.y = ((self.height * 5/7) - 210) # snaps runner to the ground when he touches the ground
+                    self.runner.rect.y = ((self.height * 5/7) - 210) 
                 else: 
                     self.runner.rect.y += self.runner.yvel
                 if self.runner.rect.colliderect(self.obstacle.rect):
@@ -290,7 +290,6 @@ class Controller:
                     self.coin_counter.text = f"coins: {str(self.coins)}"
                     if self.coins >= self.max_coins:
                         self.max_coins = self.coins
-                        #self.max_coins_counter.text = f"coins high score:{str(self.max_coins)}"
                         coins_hs_file = open("assets/coins_high_score.txt", "w")
                         coins_hs_file.write(str(self.max_coins))
                         coins_hs_file.close
@@ -298,7 +297,7 @@ class Controller:
                         coins_hs_file_text = coins_hs_file.read()
                         self.max_coins_counter.text = f"coins high score:{str(coins_hs_file_text)}"
                         coins_hs_file.close()   
-                self.background_color = "light blue" # set background color
+                self.background_color = "light blue" 
                 self.background.fill(self.background_color)
                 self.screen.blit(self.background, (0, 0))
                 self.ground_blocks.draw(self.screen)
