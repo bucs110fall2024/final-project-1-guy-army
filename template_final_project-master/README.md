@@ -14,6 +14,7 @@ An endless runner sidescroller with obstacles to avoid, coins to collect, and up
 ## Requirements
 pygame
 pygame widgets
+
 ***    
 
 ## GUI Design
