@@ -10,6 +10,10 @@ Amitai Saiger
 ## Project Description
 
 An endless runner sidescroller with obstacles to avoid, coins to collect, and upgrades to make your character stronger after they die for future runs
+
+## Requirements
+pygame
+pygame widgets
 ***    
 
 ## GUI Design
