@@ -5,12 +5,12 @@ class Text:
         """
         Initializes the Runner object
         args:
-        - font: str - the font of the text
-        - size: int - the size of the text
-        - antialias: bool - does the text have antialiasing?
-        - colour: str - the color of the text
-        - background: str - the background color of the text object
-        - text: str - the text you want printed
+        - font: (str) the font of the text
+        - size: (int) the size of the text
+        - antialias: (bool) does the text have antialiasing?
+        - colour: (str) the color of the text
+        - background: (str) the background color of the text object
+        - text: (str) the text you want printed
         return: none
         """
         self.font = font

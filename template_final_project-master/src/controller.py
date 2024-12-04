@@ -37,7 +37,7 @@ class Controller:
             '''
             changes the coin multiplier based on which button was pressed
             args:
-            - mult : int - the number by which the coin multiplier should be changed
+            - mult : (int) the number by which the coin multiplier should be changed
             return: none
             '''
             if mult == 2:

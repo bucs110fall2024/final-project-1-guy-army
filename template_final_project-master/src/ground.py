@@ -6,9 +6,9 @@ class Ground(pygame.sprite.Sprite):
         """
         Initializes the ground object
         args:
-        - x : int - starting x coordinate
-        - y : int - starting y coordinate
-        - img_file : str - path to img file
+        - x : (int) starting x coordinate
+        - y : (int) starting y coordinate
+        - img_file : (int) path to img file
         return: none
         """
         self.image = pygame.image.load(img_file)

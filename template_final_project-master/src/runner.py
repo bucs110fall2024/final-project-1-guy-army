@@ -6,9 +6,9 @@ class Runner(pygame.sprite.Sprite):
         """
         Initializes the Runner object
         args:
-        - x : int - starting x coordinate
-        - y : int - starting y coordinate
-        - img_file : str - path to img file
+        - x : (int) starting x coordinate
+        - y : (int) starting y coordinate
+        - img_file : (str) path to img file
         return: none
         """
         self.image = pygame.image.load(img_file)
